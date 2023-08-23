@@ -92,17 +92,13 @@ export const fetchFilms = createAsyncThunk('films/fetchFilms', async () => {
   return response.data
 })
 
-export const postRating = createAsyncThunk('films/postRating', async ({id,rating}) => {
+export const postRating = createAsyncThunk('films/postRating', async ({ id, rating }) => {
   const baseURL = 'http://localhost:5000/api/'
-  console.log('id = ',id);
-  console.log('rating = ',rating);
-  console.log('url = ',baseURL + 'film/'+id);
-  const response = await axios.post(baseURL + 'film/'+id,
-  {
-    "id": id,  
-    "rating": rating
-        })
-  console.log('data response = ',response.data);
+
+  const response = await axios.put(baseURL + 'film/' + id, {
+    id: id,
+    rating: rating,
+  })
   return response.data
 })
 
@@ -126,10 +122,15 @@ export const filmsReducer = createSlice({
         state.newMovies.push(...state.films.sort((a, b) => b.createdAt - a.createdAt).filter((_, i) => i < 3))
       }
     })
-    builder.addCase(postRating.fulfilled, (state, action) => {
-     
+    builder.addCase(postRating.fulfilled, (state, { payload }) => {
+      state.newMovies.map((item, i) => {
+        if (item.id === payload.id) {
+          item.ratingCount++
+          item.ratingSum = payload.ratingSum
+        }
+      })
     })
-  }
+  },
 })
 
 export const { findTopFilms } = filmsReducer.actions
