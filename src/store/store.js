@@ -1,13 +1,18 @@
-import {combineReducers, createStore} from 'redux'
-import reducer from './reducer';
+import { combineReducers } from 'redux'
+import {configureStore} from '@reduxjs/toolkit'
+import AuthReducer from './authReducer'
+import FilmsReducer from './filmsReducer'
 
-// let reducers = combineReducers({
-//     main: mainReducer,
- 
-// })
-
-const store = createStore(reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && 
-    window.__REDUX_DEVTOOLS_EXTENSION__());
+let reducers = combineReducers({
+  AuthReducer: AuthReducer,
+  FilmsReducer: FilmsReducer,
+})
+const store = configureStore({
+  reducer:reducers,
+  middleware: getDefaultMiddleware =>
+  getDefaultMiddleware({
+    serializableCheck: false,
+  })
+})
 
 export default store

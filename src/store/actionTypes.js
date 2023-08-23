@@ -1,1 +1,0 @@
-export const AUTH_TOGGLE = 'AUTH_TOGGLE'

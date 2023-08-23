@@ -1,8 +1,8 @@
 import React from 'react';
-import {Routes, Route, Redirect, Navigate} from 'react-router-dom'
+import {Routes, Route, Navigate} from 'react-router-dom'
 import { authRoutes, publicRoutes } from '../routes';
-import { useDispatch, useSelector } from "react-redux";
-import { toggleAuth } from '../store/actions';
+import { useSelector } from "react-redux";
+// import { toggleAuth } from '../store/actions';
 
 function AppRouter(props) {
     

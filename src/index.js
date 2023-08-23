@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <Container fluid className='bg-dark'style ={{minHeight:'100vh'}}>
+      <Container fluid className='bg-dark m-0 p-0'style ={{minHeight:'100vh'}}>
           <App />
       </Container>
 

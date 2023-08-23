@@ -7,15 +7,17 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { NavLink, useLocation } from 'react-router-dom';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts';
+import { useDispatch } from 'react-redux';
+import { authToggle } from '../store/authReducer';
 
 function Auth(props) {
+    const dispatch = useDispatch()
     const location = useLocation()
-    console.log(location);
     const isLogin = location.pathname === LOGIN_ROUTE ? true : false
     return (
         <Container 
            className='d-flex justify-content-center align-items-center'>
-           <Card className='mt-4 p-3' style={{width:"500px"}}>
+           <Card className='mt-4 p-3'  style={{width:"500px"}}>
             <h2 className='m-auto mb-3'>{isLogin? 'Авторизация':'Регистрация'}</h2>
                 <Card.Body>
                     <Form >
@@ -42,7 +44,7 @@ function Auth(props) {
                             <p>{isLogin ? 'Нет аккаунта?':'Есть аккаунт?'}</p>
                             <NavLink to={isLogin? REGISTRATION_ROUTE : LOGIN_ROUTE}>{isLogin ? 'Зарегистрируйтесь!' : 'Войдите!'}</NavLink>
                         </div>    
-                        <Button variant="outline-success">{isLogin ? 'Войти':'Зарегистрироваться'}</Button>{' '}
+                        <Button onClick={()=>dispatch(authToggle())} variant="outline-success">{isLogin ? 'Войти':'Зарегистрироваться'}</Button>{' '}
                     </Row>
                 </Card.Body>
             </Card>
